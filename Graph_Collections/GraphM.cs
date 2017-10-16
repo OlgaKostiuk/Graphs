@@ -260,6 +260,7 @@ namespace Graph_Collections
             Vertex src = GetVertexRef(city);
             int?[] dist = new int?[_size];
             bool?[] sptSet = new bool?[_size];
+            //Vertex[] parents = new Vertex[_size];
             for (int i = 0; i < _size; i++)
             {
                 if (_vertices[i] != null)
@@ -286,6 +287,7 @@ namespace Graph_Collections
                     {
                         dist[v] = dist[current] + _matrix[current, v].Weight;
                         _vertices[v].prev = _vertices[current];
+                        //parents[v] = _vertices[current];
                     }
                 }
             }
