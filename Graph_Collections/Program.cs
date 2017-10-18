@@ -62,17 +62,17 @@ namespace Graph_Collections
             Console.WriteLine(graph.VerticesCount());
 
             GraphM testGreedy = new GraphM();
-            testGreedy.AddVertex("1");
-            testGreedy.AddVertex("2");
-            testGreedy.AddVertex("3");
-            testGreedy.AddVertex("4");
+            testGreedy.AddVertex("a");
+            testGreedy.AddVertex("b");
+            testGreedy.AddVertex("c");
+            testGreedy.AddVertex("d");
 
-            testGreedy.AddEdge("1", "2", 10);
-            testGreedy.AddEdge("2", "3", 5);
-            testGreedy.AddEdge("1", "3", 20);
-            testGreedy.AddEdge("2", "4", 12);
-            testGreedy.AddEdge("3", "4", 1);
-            testGreedy.Dijkstra("1");
+            testGreedy.AddEdge("a", "b", 10);
+            testGreedy.AddEdge("b", "c", 5);
+            testGreedy.AddEdge("a", "c", 20);
+            testGreedy.AddEdge("b", "d", 12);
+            testGreedy.AddEdge("c", "d", 1);
+            testGreedy.Dijkstra("a");
 
             Console.ReadKey();
         }

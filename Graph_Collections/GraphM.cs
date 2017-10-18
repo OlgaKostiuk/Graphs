@@ -11,6 +11,7 @@ namespace Graph_Collections
         private class Vertex
         {
             public string Name;
+            public Vertex prev;
 
             public Vertex(string name)
             {
@@ -259,11 +260,7 @@ namespace Graph_Collections
             Vertex src = GetVertexRef(city);
             int?[] dist = new int?[_size];
             bool?[] sptSet = new bool?[_size];
-            List<Vertex> [] paths = new List<Vertex>[_size];
-            for (int i = 0; i < _size; i++)
-            {
-                paths[i] = new List<Vertex>();
-            }
+            //Vertex[] parents = new Vertex[_size];
             for (int i = 0; i < _size; i++)
             {
                 if (_vertices[i] != null)
@@ -278,11 +275,10 @@ namespace Graph_Collections
             for (int count = 0; count < _size - 1; count++)
             {
                 int current = minDistance(dist, sptSet);
-                if (current == -1)
+                if(current == -1)
                     break;
                 sptSet[current] = true;
-                paths[current].Add(_vertices[current]);
-            for (int v = 0; v < _size; v++)
+                for (int v = 0; v < _size; v++)
                 {
                     if (sptSet[v] != null && sptSet[v] == false &&
                         _matrix[current, v] != null &&
@@ -290,6 +286,8 @@ namespace Graph_Collections
                         dist[current] + _matrix[current, v].Weight < dist[v])
                     {
                         dist[v] = dist[current] + _matrix[current, v].Weight;
+                        _vertices[v].prev = _vertices[current];
+                        //parents[v] = _vertices[current];
                     }
                 }
             }
@@ -315,11 +313,23 @@ namespace Graph_Collections
 
         void printSolution(int?[] dist)
         {
-            Console.WriteLine("Vertex   Distance from Source");
             for (int i = 0; i < _size; i++)
                 if (dist[i] != null)
                 {
-                    Console.WriteLine(_vertices[i].Name + " \t\t " + dist[i]);
+                    List<Vertex> path = new List<Vertex>();
+                    Console.Write("Vertex: " + _vertices[i].Name + " Distance: " + dist[i]  + " Path: ");
+                    Vertex previous = _vertices[i].prev;
+                    while (previous != null)
+                    {
+                        path.Add(previous);
+                        previous = previous.prev;
+                    }
+                    path.Reverse();
+                    foreach (var item in path)
+                    {
+                        Console.Write(item.Name + "->");
+                    }
+                    Console.Write(_vertices[i].Name + "\n");
                 }
         }
     }
