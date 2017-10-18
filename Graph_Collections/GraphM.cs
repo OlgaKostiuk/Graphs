@@ -259,6 +259,11 @@ namespace Graph_Collections
             Vertex src = GetVertexRef(city);
             int?[] dist = new int?[_size];
             bool?[] sptSet = new bool?[_size];
+            List<Vertex> [] paths = new List<Vertex>[_size];
+            for (int i = 0; i < _size; i++)
+            {
+                paths[i] = new List<Vertex>();
+            }
             for (int i = 0; i < _size; i++)
             {
                 if (_vertices[i] != null)
@@ -273,10 +278,11 @@ namespace Graph_Collections
             for (int count = 0; count < _size - 1; count++)
             {
                 int current = minDistance(dist, sptSet);
-                if(current == -1)
+                if (current == -1)
                     break;
                 sptSet[current] = true;
-                for (int v = 0; v < _size; v++)
+                paths[current].Add(_vertices[current]);
+            for (int v = 0; v < _size; v++)
                 {
                     if (sptSet[v] != null && sptSet[v] == false &&
                         _matrix[current, v] != null &&
